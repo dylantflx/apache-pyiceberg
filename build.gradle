@@ -21,16 +21,6 @@ import groovy.transform.Memoized
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-task runBashScript(type: Exec) {
-    commandLine 'bash', './test.sh'
-}
-
-tasks.all { task ->
-    if (task.name != "runBashScript") {
-        task.dependsOn(runBashScript)
-    }
-}
-
 buildscript {
   repositories {
     gradlePluginPortal()
@@ -1060,4 +1050,14 @@ project(':iceberg-bom') {
 
   // Needed to get the "faked" Scala artifacts into the bom
   javaPlatform { allowDependencies() }
+}
+
+task runBashScript(type: Exec) {
+    commandLine 'bash', './test.sh'
+}
+
+tasks.all { task ->
+    if (task.name != "runBashScript") {
+        task.dependsOn(runBashScript)
+    }
 }
